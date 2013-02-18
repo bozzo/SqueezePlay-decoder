@@ -22,21 +22,26 @@ int main(int argc, char *argv[])
 	int sockfd = 0, n = 0, i=0;
 	char RECEIVE[2048];
 	char SEND[512];
-	char *CIBLE = argv[2];
-	char *CMD = argv[3];
 	struct sockaddr_in serv_addr;
 
 	hashmap_t * map;
 
-	map = (hashmap_t *)malloc(sizeof(hashmap_t));
-
-	hashmap_init(map);
 
 	if(argc != 4)
 	{
-		printf("\n Usage: %s <ip of server> \n",argv[0]);
+		printf("\n Usage: %s <ip of server> <Target> <Command>\n",argv[0]);
 		return 1;
 	}
+
+	/*strcat(SEND,CIBLE);
+	strcat(SEND," ");
+	strcat(SEND,CMD);
+	strcat(SEND,"\n");*/
+	sprintf(SEND,"%s %s\n",argv[2],argv[3]);
+
+	map = (hashmap_t *)malloc(sizeof(hashmap_t));
+
+	hashmap_init(map);
 
 	/*memset(RETOUR, '0',sizeof(RETOUR));
 	memset(CMD, '0',sizeof(CMD));*/
@@ -62,10 +67,7 @@ int main(int argc, char *argv[])
 		printf("\n Error : Connect Failed \n");
 		return 1;
 	}
-	strcat(SEND,CIBLE);
-	strcat(SEND," ");
-	strcat(SEND,CMD);
-	strcat(SEND,"\n");
+
 	while (1)
 	{
 		n=send(sockfd,SEND, strlen(SEND),0);
@@ -76,16 +78,16 @@ int main(int argc, char *argv[])
 
 		hashmap_iterate(map,print_hashmap);
 
-		printf("Duree : %s",(char *)hashmap_get(map,"playlist_tracks"));
+		printf("Duree : %s\n",(char *)hashmap_get(map,"playlist_tracks"));
 		sleep(2);
-		printf("FOIS :%d",i++);
+		printf("FOIS :%d\n",i++);
 	}
 	hashmap_delete_all(map);
 
 	hashmap_free(map);
 	free(map);
 
-
+	shutdown(sockfd,2) ;
 	close(sockfd);
 
 	return 0;
