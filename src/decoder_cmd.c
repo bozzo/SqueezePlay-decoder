@@ -17,12 +17,43 @@ void print_hashmap(char * key, void * value)
 	fprintf(stdout,"%s ---> %s\n",key,(char *) value);
 }
 
+int squeeze_connect(char * ip, int port)
+{
+	int sockfd = 0;
+	struct sockaddr_in serv_addr;
+
+	/*memset(RETOUR, '0',sizeof(RETOUR));
+		memset(CMD, '0',sizeof(CMD));*/
+	if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+	{
+		printf("\n Error : Could not create socket \n");
+		return -1;
+	}
+
+	memset(&serv_addr, '0', sizeof(serv_addr));
+
+	serv_addr.sin_family = AF_INET;
+	serv_addr.sin_port = htons(port);
+
+	if(inet_pton(AF_INET, ip, &serv_addr.sin_addr)<=0)
+	{
+		printf("\n inet_pton error occured\n");
+		return -1;
+	}
+
+	if( connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+	{
+		printf("\n Error : Connect Failed \n");
+		return -1;
+	}
+	return sockfd;
+}
+
 int main(int argc, char *argv[])
 {
 	int sockfd = 0, n = 0, i=0;
 	char RECEIVE[2048];
 	char SEND[512];
-	struct sockaddr_in serv_addr;
 
 	hashmap_t * map;
 
@@ -43,28 +74,9 @@ int main(int argc, char *argv[])
 
 	hashmap_init(map);
 
-	/*memset(RETOUR, '0',sizeof(RETOUR));
-	memset(CMD, '0',sizeof(CMD));*/
-	if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+	if((sockfd = squeeze_connect(argv[1],9090)) < 0)
 	{
-		printf("\n Error : Could not create socket \n");
-		return 1;
-	}
-
-	memset(&serv_addr, '0', sizeof(serv_addr));
-
-	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_port = htons(9090);
-
-	if(inet_pton(AF_INET, argv[1], &serv_addr.sin_addr)<=0)
-	{
-		printf("\n inet_pton error occured\n");
-		return 1;
-	}
-
-	if( connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
-	{
-		printf("\n Error : Connect Failed \n");
+		printf("\n Error : Couldn't connect to SqueezePlay.\n");
 		return 1;
 	}
 
