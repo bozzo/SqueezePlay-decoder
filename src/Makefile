@@ -84,11 +84,11 @@ am__can_run_installinfo = \
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} "/data/perso/Mes docs/Workspace/SqueezePlay decoder/missing" --run aclocal-1.12
+ACLOCAL = ${SHELL} /data/git/SqueezePlay-decoder/missing --run aclocal-1.12
 AMTAR = $${TAR-tar}
-AUTOCONF = ${SHELL} "/data/perso/Mes docs/Workspace/SqueezePlay decoder/missing" --run autoconf
-AUTOHEADER = ${SHELL} "/data/perso/Mes docs/Workspace/SqueezePlay decoder/missing" --run autoheader
-AUTOMAKE = ${SHELL} "/data/perso/Mes docs/Workspace/SqueezePlay decoder/missing" --run automake-1.12
+AUTOCONF = ${SHELL} /data/git/SqueezePlay-decoder/missing --run autoconf
+AUTOHEADER = ${SHELL} /data/git/SqueezePlay-decoder/missing --run autoheader
+AUTOMAKE = ${SHELL} /data/git/SqueezePlay-decoder/missing --run automake-1.12
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -113,7 +113,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} "/data/perso/Mes docs/Workspace/SqueezePlay decoder/missing" --run makeinfo
+MAKEINFO = ${SHELL} /data/git/SqueezePlay-decoder/missing --run makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = squeezeplay-decoder
@@ -128,10 +128,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = 
 VERSION = 0.0.1
-abs_builddir = /data/perso/Mes docs/Workspace/SqueezePlay decoder/src
-abs_srcdir = /data/perso/Mes docs/Workspace/SqueezePlay decoder/src
-abs_top_builddir = /data/perso/Mes docs/Workspace/SqueezePlay decoder
-abs_top_srcdir = /data/perso/Mes docs/Workspace/SqueezePlay decoder
+abs_builddir = /data/git/SqueezePlay-decoder/src
+abs_srcdir = /data/git/SqueezePlay-decoder/src
+abs_top_builddir = /data/git/SqueezePlay-decoder
+abs_top_srcdir = /data/git/SqueezePlay-decoder
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -150,7 +150,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} '/data/perso/Mes docs/Workspace/SqueezePlay decoder/install-sh'
+install_sh = ${SHELL} /data/git/SqueezePlay-decoder/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -188,9 +188,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/Makefile
+	  $(AUTOMAKE) --foreign src/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

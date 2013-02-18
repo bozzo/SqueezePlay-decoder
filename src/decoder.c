@@ -17,6 +17,7 @@ int decode(char * inputStr, hashmap_t * map)
 	{
 		/* url decode the part */
 		tmp = url_decode(pch);
+
 		key = strtok_r (tmp,":", &saveptr2);
 		value = strtok_r (NULL,":", &saveptr2);
 

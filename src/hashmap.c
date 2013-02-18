@@ -37,7 +37,8 @@ int hashmap_set(hashmap_t * map, char * key, void * object) {
 		/* num_deld++; */
 	} else {
 		newnode = (hashmap_node_t *)malloc(sizeof(hashmap_node_t));
-		if (!newnode) return -1;;
+		if (!newnode) return -1;
+		newnode->key = (char *)malloc(strlen(key) * sizeof(char));
 		strcpy(newnode->key, key);
 		HASH_ADD_STR(map->map, key, newnode);
 	}
@@ -108,6 +109,7 @@ int hashmap_delete_all(hashmap_t * map)
 	}
 	HASH_ITER(hh, map->map, oldnode, tmp) {
 		HASH_DEL(map->map,oldnode);  /* delete; users advances to next */
+		free(oldnode->key);
 		free(oldnode);            /* optional- if you want to free  */
 	}
 	pthread_rwlock_unlock(&map->lock);
