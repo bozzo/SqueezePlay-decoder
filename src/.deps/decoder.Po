@@ -20,7 +20,8 @@ decoder.o: decoder.c decoder.h /usr/include/stdio.h \
  /usr/include/sched.h /usr/include/bits/sched.h \
  /usr/include/bits/setjmp.h uthash.h /usr/include/inttypes.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.7.2/include/stdint.h \
- /usr/include/stdint.h /usr/include/bits/wchar.h urlcoder.h
+ /usr/include/stdint.h /usr/include/bits/wchar.h urlcoder.h \
+ /usr/include/ctype.h
 
 decoder.h:
 
@@ -119,3 +120,5 @@ uthash.h:
 /usr/include/bits/wchar.h:
 
 urlcoder.h:
+
+/usr/include/ctype.h:

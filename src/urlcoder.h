@@ -9,6 +9,11 @@
 #ifndef URLCODER_H_
 #define URLCODER_H_
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
 /* Converts a hex character to its integer value */
 char from_hex(char ch);
 

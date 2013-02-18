@@ -38,9 +38,11 @@ int hashmap_set(hashmap_t * map, char * key, void * object) {
 	} else {
 		newnode = (hashmap_node_t *)malloc(sizeof(hashmap_node_t));
 		if (!newnode) return -1;
-		newnode->key = (char *)malloc(strlen(key) * sizeof(char));
+		/*newnode->key = (char *)malloc(strlen(key) * sizeof(char));
 		strcpy(newnode->key, key);
-		HASH_ADD_STR(map->map, key, newnode);
+		HASH_ADD_STR(map->map, key, newnode);*/
+		newnode->key = key;
+		HASH_ADD_KEYPTR(hh, map->map, newnode->key, strlen(newnode->key), newnode);
 	}
 	newnode->object=object;
 	pthread_rwlock_unlock(&map->lock);
