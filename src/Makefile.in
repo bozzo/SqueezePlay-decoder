@@ -63,7 +63,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_decodercmd_OBJECTS = decoder_cmd.$(OBJEXT) decoder.$(OBJEXT) \
-	hashmap.$(OBJEXT) urlcoder.$(OBJEXT)
+	hashmap.$(OBJEXT) urlcoder.$(OBJEXT) dlloader.$(OBJEXT)
 decodercmd_OBJECTS = $(am_decodercmd_OBJECTS)
 decodercmd_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -172,9 +172,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # what flags you want to pass to the C compiler & linker
-AM_CFLAGS = --pedantic -Wall -O3
-AM_LDFLAGS = -pthread -lrt
-decodercmd_SOURCES = decoder_cmd.c decoder.c decoder.h hashmap.c hashmap.h urlcoder.c urlcoder.h uthash.h
+AM_CFLAGS = --pedantic -Wall -O3 -rdynamic
+AM_LDFLAGS = -pthread -lrt -ldl 
+decodercmd_SOURCES = decoder_cmd.c decoder.c decoder.h hashmap.c hashmap.h urlcoder.c urlcoder.h uthash.h dlloader.c dlloader.h
 all: all-am
 
 .SUFFIXES:
@@ -261,6 +261,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decoder.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decoder_cmd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dlloader.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hashmap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/urlcoder.Po@am__quote@
 

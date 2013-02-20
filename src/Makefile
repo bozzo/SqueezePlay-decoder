@@ -63,7 +63,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_decodercmd_OBJECTS = decoder_cmd.$(OBJEXT) decoder.$(OBJEXT) \
-	hashmap.$(OBJEXT) urlcoder.$(OBJEXT)
+	hashmap.$(OBJEXT) urlcoder.$(OBJEXT) dlloader.$(OBJEXT)
 decodercmd_OBJECTS = $(am_decodercmd_OBJECTS)
 decodercmd_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
@@ -101,10 +101,10 @@ DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /usr/bin/grep -E
+EGREP = /bin/grep -E
 EXEEXT = 
-GREP = /usr/bin/grep
-INSTALL = /usr/bin/install -c
+GREP = /bin/grep
+INSTALL = /bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -114,7 +114,7 @@ LIBOBJS =
 LIBS = 
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /data/git/SqueezePlay-decoder/missing --run makeinfo
-MKDIR_P = /usr/bin/mkdir -p
+MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = squeezeplay-decoder
 PACKAGE_BUGREPORT = pyk@pyk.fr
@@ -172,9 +172,9 @@ top_builddir = ..
 top_srcdir = ..
 
 # what flags you want to pass to the C compiler & linker
-AM_CFLAGS = --pedantic -Wall -O3
-AM_LDFLAGS = -pthread -lrt
-decodercmd_SOURCES = decoder_cmd.c decoder.c decoder.h hashmap.c hashmap.h urlcoder.c urlcoder.h uthash.h
+AM_CFLAGS = --pedantic -Wall -O3 -rdynamic
+AM_LDFLAGS = -pthread -lrt -ldl 
+decodercmd_SOURCES = decoder_cmd.c decoder.c decoder.h hashmap.c hashmap.h urlcoder.c urlcoder.h uthash.h dlloader.c dlloader.h
 all: all-am
 
 .SUFFIXES:
@@ -261,6 +261,7 @@ distclean-compile:
 
 include ./$(DEPDIR)/decoder.Po
 include ./$(DEPDIR)/decoder_cmd.Po
+include ./$(DEPDIR)/dlloader.Po
 include ./$(DEPDIR)/hashmap.Po
 include ./$(DEPDIR)/urlcoder.Po
 

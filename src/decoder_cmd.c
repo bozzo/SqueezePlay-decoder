@@ -11,11 +11,8 @@
 
 #include "../src/decoder.h"
 #include "../src/hashmap.h"
+#include "../src/dlloader.h"
 
-void print_hashmap(char * key, void * value)
-{
-	fprintf(stdout,"%s ---> %s\n",key,(char *) value);
-}
 
 int squeeze_connect(char * ip, int port)
 {
@@ -49,14 +46,21 @@ int squeeze_connect(char * ip, int port)
 	return sockfd;
 }
 
+void print_hashmap(char * key, void * value)
+{
+	fprintf(stdout,"%s ---> %s\n",key,(char *) value);
+}
+
 int main(int argc, char *argv[])
 {
+	void * handle;
 	int sockfd = 0, n = 0, i=0;
 	char RECEIVE[2048];
 	char SEND[512];
 
-	hashmap_t * map;
+	void (*ptr_func)(char *, void *);
 
+	hashmap_t * map;
 
 	if(argc != 4)
 	{
@@ -74,6 +78,13 @@ int main(int argc, char *argv[])
 
 	hashmap_init(map);
 
+	handle = dlloader_selfload();
+
+	ptr_func = dlloader_get(handle,"print_hashmap");
+
+	printf("\n\nPointeur : %p\n",(void *)print_hashmap);
+	printf("\n\nPointeur dlloader : %p\n",(void *)ptr_func);
+
 	if((sockfd = squeeze_connect(argv[1],9090)) < 0)
 	{
 		printf("\n Error : Couldn't connect to SqueezePlay.\n");
@@ -88,7 +99,7 @@ int main(int argc, char *argv[])
 		/*printf("%s",str_replace(str_replace(str_replace(RECEIVE,"%3A",":")," ","\n"),"%20"," "));*/
 		decode(RECEIVE, map);
 
-		hashmap_iterate(map,print_hashmap);
+		hashmap_iterate(map,ptr_func);
 
 		printf("Duree : %s\n",(char *)hashmap_get(map,"playlist_tracks"));
 		sleep(2);

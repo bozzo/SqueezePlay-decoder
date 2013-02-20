@@ -17,7 +17,7 @@ AC_PROG_CC
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([inttypes.h stddef.h stdlib.h string.h pthread.h])
+AC_CHECK_HEADERS([inttypes.h stddef.h stdlib.h string.h pthread.h dlfcn.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_UINT16_T
@@ -32,5 +32,6 @@ AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset strtok pthread_rwlock_init])
 AC_CHECK_FUNCS([gethostbyname])
 AC_CHECK_FUNCS([socket])
+AC_CHECK_FUNCS([dlsym])
 
 AC_OUTPUT(Makefile src/Makefile)

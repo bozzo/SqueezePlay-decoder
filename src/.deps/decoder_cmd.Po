@@ -35,7 +35,8 @@ decoder_cmd.o: decoder_cmd.c /usr/include/sys/socket.h \
  /usr/include/arpa/inet.h ../src/decoder.h ../src/hashmap.h \
  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
  /usr/include/bits/setjmp.h ../src/uthash.h /usr/include/inttypes.h \
- ../src/urlcoder.h /usr/include/ctype.h ../src/hashmap.h
+ ../src/urlcoder.h /usr/include/ctype.h ../src/hashmap.h \
+ ../src/dlloader.h /usr/include/dlfcn.h /usr/include/bits/dlfcn.h
 
 /usr/include/sys/socket.h:
 
@@ -192,3 +193,9 @@ decoder_cmd.o: decoder_cmd.c /usr/include/sys/socket.h \
 /usr/include/ctype.h:
 
 ../src/hashmap.h:
+
+../src/dlloader.h:
+
+/usr/include/dlfcn.h:
+
+/usr/include/bits/dlfcn.h:
